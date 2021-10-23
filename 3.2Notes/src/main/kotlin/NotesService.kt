@@ -103,10 +103,9 @@ object NotesService {
             if (comment.id == noteComments[index].id) {
                 if (noteComments[index].ifDeleted == true) {
                     throw CommentNotFoundException("no comment with id: ${comment.id}")
-                }
-                else {
-                noteComments[index] = comment.copy()
-                success = true
+                } else {
+                    noteComments[index] = comment.copy()
+                    success = true
                 }
             }
         }
@@ -117,24 +116,17 @@ object NotesService {
 
     }
 
-    fun get(
-        noteIds: IntArray,
-        count: Int
-    ): Array<Note> { //Возвращает список заметок, созданных пользователем.
+    fun get(noteIds: IntArray): Array<Note> { //Возвращает список заметок, созданных пользователем.
         var searchedNotes: Array<Note> = emptyArray<Note>()
-       // var counts: Int = count
         var success = false
-        //while (count !== 0) {
-            noteIds.forEachIndexed { index, ids ->
-                notes.forEachIndexed { index, Note ->
-                    if (ids == notes[index].id) {
-                        searchedNotes += notes[index]
-                       // counts -= 1
-                        success = true
-                    }
+        noteIds.forEachIndexed { index, ids ->
+            notes.forEachIndexed { index, Note ->
+                if (ids == notes[index].id) {
+                    searchedNotes += notes[index]
+                    success = true
                 }
             }
-        //}
+        }
         if (success) {
             println("Note is found")
         } else throw NoteNotFoundException("no note with ids: ${noteIds.toString()}")
@@ -186,6 +178,7 @@ object NotesService {
         } else throw CommentNotFoundException("no comments with ids: $commentId")
         return success
     }
+
     class NoteNotFoundException(message: String) : RuntimeException(message) {
     }
 

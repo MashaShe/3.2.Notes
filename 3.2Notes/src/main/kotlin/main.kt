@@ -23,7 +23,6 @@ fun main (){
     NotesService.add(myNote1)
     NotesService.add(myNote2)
     NotesService.createComment(myComment)
-   print(NotesService.get(IntArray(2,{1;2}),3).size)
     NotesService.printNotes()
     NotesService.printComments()
 }
