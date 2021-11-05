@@ -19,12 +19,12 @@ fun main (){
         noteId = 2,
         messageText = "My first comment to my first note!"
     )
-
-    NotesService.add(myNote1)
-    NotesService.add(myNote2)
-    NotesService.createComment(myComment)
-    NotesService.printNotes()
-    NotesService.printComments()
+   val notesService = NotesService ()
+    notesService.add(myNote1)
+    notesService.add(myNote2)
+    notesService.createComment(myComment)
+    notesService.printNotes()
+    notesService.printComments()
 }
 
 

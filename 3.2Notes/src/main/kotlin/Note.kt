@@ -7,8 +7,8 @@ data class Note  (
     var comments: Int =0, //  количество комментариев.
     val readComments: Int? =0,// количество прочитанных комментариев (только при запросе информации о заметке текущего пользователя).
     val viewUrl: String =" ", // 	URL страницы для отображения заметки.
-    val privacyView:Array<String> = arrayOf("all", "-2" ), //	настройки приватности просмотра заметки
-    val privacyComment:Array<String> = arrayOf("all", "-2" ), // 	настройки приватности комментирования заметки
+    val privacyView:List<String> = listOf("all", "-2" ), //	настройки приватности просмотра заметки
+    val privacyComment:List<String> = listOf("all", "-2" ), // 	настройки приватности комментирования заметки
     val canComment: Int=0, //Есть ли возможность оставлять комментарии
     val textWiki: String =" " //Тэги ссылок на wiki
 )

@@ -1,12 +1,13 @@
-import NotesService.noteComments
-import NotesService.notes
+package src.main.kotlin
+import Note
+import Comment
+import NotesService
 import org.junit.Test
 import junit.framework.Assert.assertEquals
 
 class NotesServiceTest {
-
     @org.junit.Test
-    fun addTest() {
+    fun add() {
         val myNote1 = Note(
             id = 1,
             ownerId = 1,
@@ -16,9 +17,10 @@ class NotesServiceTest {
             comments = 0,
             readComments = 0
         )
+        val notesService = NotesService()
 
-        NotesService.add(myNote1)
-        val result = notes[0].id !== 0
+        notesService.add(myNote1)
+        val result = notesService.notes[0].id !== 0
         val expected = true
         assertEquals(result, expected)
     }
@@ -45,10 +47,11 @@ class NotesServiceTest {
             comments = 1,
             readComments = 0
         )
+        val notesService = NotesService()
 
 
-        NotesService.add(myNote1)
-        val result = NotesService.edit(myNote2)
+        notesService.add(myNote1)
+        val result = notesService.edit(myNote2)
         val expected = true
         assertEquals(result, expected)
     }
@@ -73,8 +76,10 @@ class NotesServiceTest {
             comments = 1,
             readComments = 0
         )
-        NotesService.add(myNote1)
-        val result = NotesService.edit(myNote2)
+        val notesService = NotesService()
+
+        notesService.add(myNote1)
+        val result = notesService.edit(myNote2)
         val expected = false
         assertEquals(result, expected)
     }
@@ -90,8 +95,10 @@ class NotesServiceTest {
             comments = 0,
             readComments = 0
         )
-        NotesService.add(myNote1)
-        val result = NotesService.delete(70)
+        val notesService = NotesService()
+
+        notesService.add(myNote1)
+        val result = notesService.delete(70)
         val expected = false
         assertEquals(result, expected)
 
@@ -108,8 +115,10 @@ class NotesServiceTest {
             comments = 0,
             readComments = 0
         )
-        NotesService.add(myNote1)
-        val result = NotesService.delete(myNote1.id)
+        val notesService = NotesService()
+
+        notesService.add(myNote1)
+        val result = notesService.delete(myNote1.id)
         val expected = true
         assertEquals(result, expected)
 
@@ -131,9 +140,11 @@ class NotesServiceTest {
             noteId = 1,
             messageText = "My first comment to my first note!"
         )
-        NotesService.add(myNote1)
-        NotesService.createComment(myComment)
-        val result = NotesService.deleteComment(50)
+        val notesService = NotesService()
+
+        notesService.add(myNote1)
+        notesService.createComment(myComment)
+        val result = notesService.deleteComment(50)
         val expected = false
         assertEquals(result, expected)
 
@@ -156,9 +167,11 @@ class NotesServiceTest {
             noteId = 1,
             messageText = "My first comment to my first note!"
         )
-        NotesService.add(myNote1)
-        NotesService.createComment(myComment)
-        val result = NotesService.deleteComment(myComment.id)
+        val notesService = NotesService()
+
+        notesService.add(myNote1)
+        notesService.createComment(myComment)
+        val result = notesService.deleteComment(myComment.id)
         val expected = true
         assertEquals(result, expected)
 
@@ -186,9 +199,11 @@ class NotesServiceTest {
             noteId = 1,
             messageText = "My second comment to my first note!"
         )
-        NotesService.add(myNote1)
-        NotesService.createComment(myComment)
-        val result = NotesService.editComment(myComment2)
+        val notesService = NotesService()
+
+        notesService.add(myNote1)
+        notesService.createComment(myComment)
+        val result = notesService.editComment(myComment2)
         val expected = true
         assertEquals(result, expected)
 
@@ -216,9 +231,11 @@ class NotesServiceTest {
             noteId = 1,
             messageText = "My second comment to my first note!"
         )
-        NotesService.add(myNote1)
-        NotesService.createComment(myComment)
-        NotesService.editComment(myComment2)
+        val notesService = NotesService()
+
+        notesService.add(myNote1)
+        notesService.createComment(myComment)
+        notesService.editComment(myComment2)
 
     }
 
@@ -239,9 +256,10 @@ class NotesServiceTest {
             noteId = 70,
             messageText = "My first comment to my first note!"
         )
+        val notesService = NotesService()
 
-        NotesService.add(myNote1)
-        NotesService.createComment(myComment)
+        notesService.add(myNote1)
+        notesService.createComment(myComment)
 
     }
 
@@ -266,11 +284,12 @@ class NotesServiceTest {
             noteId = 70,
             messageText = "M"
         )
+        val notesService = NotesService()
 
 
-        NotesService.add(myNote1)
-        NotesService.createComment(myComment1)
-        NotesService.editComment(myComment2)
+        notesService.add(myNote1)
+        notesService.createComment(myComment1)
+        notesService.editComment(myComment2)
 
     }
 
@@ -291,10 +310,12 @@ class NotesServiceTest {
             messageText = "My first comment to my first note!"
         )
 
-        NotesService.add(myNote1)
-        NotesService.createComment(myComment)
-        val result = noteComments.last().id
-        val expected = 5
+        val notesService = NotesService()
+
+        notesService.add(myNote1)
+        notesService.createComment(myComment)
+        val result = notesService.noteComments.last().id
+        val expected = 1
         assertEquals(result, expected)
     }
 
@@ -321,9 +342,11 @@ class NotesServiceTest {
             readComments = 0
         )
 
-        NotesService.add(myNote1)
-        NotesService.add(myNote2)
-        val result = NotesService.get(IntArray(2, { 1;2 })).size
+        val notesService = NotesService()
+
+        notesService.add(myNote1)
+        notesService.add(myNote2)
+        val result = notesService.get(IntArray(2, { 1;2 })).size
         val expected = 2
         assertEquals(result, expected)
 
@@ -352,12 +375,13 @@ class NotesServiceTest {
             noteId = 1,
             messageText = "My first comment to my first note!"
         )
+        val notesService = NotesService()
 
-        NotesService.add(myNote1)
-        NotesService.createComment(myComment1)
-        NotesService.createComment(myComment2)
-        val result = NotesService.getComments(1).size
-        val expected = 6
+        notesService.add(myNote1)
+        notesService.createComment(myComment1)
+        notesService.createComment(myComment2)
+        val result = notesService.getComments(1).size
+        val expected = 2
         assertEquals(result, expected)
 
     }
@@ -383,10 +407,11 @@ class NotesServiceTest {
             comments = 0,
             readComments = 0
         )
+        val notesService = NotesService()
 
-        NotesService.add(myNote1)
-        val expected = NotesService.add(myNote2)
-        val result = NotesService.getById(myNote2.id).id
+        notesService.add(myNote1)
+        val expected = notesService.add(myNote2)
+        val result = notesService.getById(myNote2.id).id
         assertEquals(result, expected)
     }
 
@@ -408,10 +433,12 @@ class NotesServiceTest {
             messageText = "My first comment to my first note!"
         )
 
-        NotesService.add(myNote1)
-        NotesService.createComment(myComment)
-        NotesService.deleteComment(1)
-        val result = NotesService.restoreComment(1)
+        val notesService = NotesService()
+
+        notesService.add(myNote1)
+        notesService.createComment(myComment)
+        notesService.deleteComment(1)
+        val result = notesService.restoreComment(1)
         val expected = true
         assertEquals(result, expected)
 

@@ -1,15 +1,15 @@
 import java.lang.RuntimeException
 
-object NotesService {
-    var notes: Array<Note> = emptyArray<Note>()
-    var noteComments: Array<Comment> = emptyArray<Comment>()
+class NotesService {
+    var notes: MutableList<Note> = mutableListOf()
+    var noteComments: MutableList<Comment> = mutableListOf()
 
     fun add(note: Note /*, privacyView:String,privacyComment:String*/): Int { //Создает новую заметку у текущего пользователя.
         if (notes.isEmpty()) {
-            notes += note
+            notes.add(note)
         } else {
             note.id = notes.last().id + 1
-            notes += note
+            notes.add(note)
         }
 
         println("Note created")
@@ -37,7 +37,7 @@ object NotesService {
                 comment.id = notes[index].comments + 1
                 notes[index].comments++
                 success = true
-                noteComments += comment
+                noteComments.add(comment)
             }
         }
 
@@ -54,7 +54,7 @@ object NotesService {
             if (noteId == notes[index].id) {
                 val result = notes.toMutableList()
                 result.removeAt(index)
-                notes = result.toTypedArray()
+                notes = result.toMutableList()
                 println("note is deleted")
                 success = true
             }
@@ -116,13 +116,13 @@ object NotesService {
 
     }
 
-    fun get(noteIds: IntArray): Array<Note> { //Возвращает список заметок, созданных пользователем.
-        var searchedNotes: Array<Note> = emptyArray<Note>()
+    fun get(noteIds: IntArray): MutableList<Note> { //Возвращает список заметок, созданных пользователем.
+        var searchedNotes: MutableList<Note> = mutableListOf()
         var success = false
         noteIds.forEachIndexed { index, ids ->
             notes.forEachIndexed { index, Note ->
                 if (ids == notes[index].id) {
-                    searchedNotes += notes[index]
+                    searchedNotes.add(notes[index])
                     success = true
                 }
             }
@@ -148,12 +148,12 @@ object NotesService {
         return note
     }
 
-    fun getComments(noteId: Int): Array<Comment> { //Возвращает список комментариев к заметке.
-        var searchedComments: Array<Comment> = emptyArray<Comment>()
+    fun getComments(noteId: Int): MutableList<Comment> { //Возвращает список комментариев к заметке.
+        var searchedComments: MutableList<Comment> = mutableListOf()
         var success = false
         noteComments.forEachIndexed { index, Comment ->
             if (noteId == noteComments[index].noteId) {
-                searchedComments += noteComments[index]
+                searchedComments.add(noteComments[index])
                 success = true
             }
         }
@@ -179,12 +179,9 @@ object NotesService {
         return success
     }
 
-    class NoteNotFoundException(message: String) : RuntimeException(message) {
-    }
+    class NoteNotFoundException(message: String) : RuntimeException(message)
 
-    class CommentNotFoundException(message: String) : RuntimeException(message) {
-    }
+    class CommentNotFoundException(message: String) : RuntimeException(message)
 
-    class CommentTooShortException(message: String) : RuntimeException(message) {
-    }
+    class CommentTooShortException(message: String) : RuntimeException(message)
 }
